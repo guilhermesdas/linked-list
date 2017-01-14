@@ -23,8 +23,8 @@ struct {
 
 /////////////////////////////////////////////////
 
-// Lista só é passado como ponteiro (Lista *)
-// quando os valores de prim e ult são alterados
+// A lista só é passada como ponteiro (Lista *)
+// quando a função alterar os valores de prim e ult
 
 // Inicializa a lista
 void inicializa(Lista* lista);
@@ -50,7 +50,7 @@ void mostrarLista(Lista lista);
 // que está na metade a lista
 Bloco* buscarMeio (Lista lista);
 
-// Intercalar duas listas ordená-las
+// Intercalar duas listas ordenadas, ordenando-as
 Lista merge(Lista lista1, Lista lista2);
 
 // Repartir a lista em duas partes recursivamente ate que ambas esteja
@@ -61,13 +61,13 @@ void mergeSort(Lista* lista);
 // e acrescentar a frequencia em um deles
 void removerRepetidos(Lista* lista);
 
-// Função para gerar um menu de opções para acesso das funções
-void menu();
-
-// Função especial com operações a se fazer quando for solicitado
+// Função com operações a se fazer quando for solicitado
 // para gerar e inserir valores na lista
 void inserirGerarMenu(Lista * lista);
 
 // Função com operações a se fazer quando for solicitado
 // para ordenar os valores na lista
 void ordenarMenu(Lista * lista);
+
+// Função para gerar um menu de opções para acesso das funções
+void menu();

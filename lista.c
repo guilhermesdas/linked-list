@@ -73,8 +73,6 @@ void mostrarLista(Lista lista){
 
 }
 
-// Função para encontrarmos o ponteiro para o elemento que está no meio
-// da lista
 Bloco* buscarMeio (Lista lista){
 
 	Bloco* pontDevagar = lista.prim;
@@ -155,28 +153,28 @@ void mergeSort(Lista* lista){
 		return;
 	}
 
-		/* Se houver apenas um elemento na lista, nenhuma
-		 * operação será feita */
-		if ( lista->prim != lista->ult ) {
+	/* Se houver apenas um elemento na lista, nenhuma
+	 * operação será feita */
+	if ( lista->prim != lista->ult ) {
 
-			Bloco* meio = buscarMeio(*lista);
+		Bloco* meio = buscarMeio(*lista);
 
-			// Cria as duas listas
-			Lista lista1;
-			lista1.prim = lista->prim;
-			lista1.ult = meio;
+		// Cria as duas listas
+		Lista lista1;
+		lista1.prim = lista->prim;
+		lista1.ult = meio;
 
-			Lista lista2;
-			lista2.prim = meio->prox;
-			lista2.ult = lista->ult;
+		Lista lista2;
+		lista2.prim = meio->prox;
+		lista2.ult = lista->ult;
 
-			// Ordena ambas as partes
-			mergeSort(&lista1);
-			mergeSort(&lista2);
+		// Ordena ambas as partes
+		mergeSort(&lista1);
+		mergeSort(&lista2);
 			
-			// Intercala as listas
-			*lista = merge(lista1,lista2);
-		}
+		// Intercala as listas
+		*lista = merge(lista1,lista2);
+	}
 
 }
 
@@ -197,12 +195,12 @@ void removerRepetidos(Lista* lista){
 			Bloco* aux = atual->prox;
 			
 			// Se o último elemento for removido,
-			// atualista lista->ult
+			// atualiza lista->ult
 			if ( aux == lista->ult )
 				lista->ult = atual;
 				
 			atual->freq++;
-			atual->prox = aux->prox; // encadeia com o ponteiro duas posições a frente
+			atual->prox = aux->prox; // encadeia atual com o ponteiro duas posições a frente
 			free(aux);
 	
 		// Continua procurando para os demais elementos da lista
@@ -278,7 +276,7 @@ void menu(Lista* lista){
 		
 			printf("\t\t\tPressione uma tecla para continuar...");
 			getchar(); getchar();
-			printf("\e[H\e[2J");
+			printf("\e[H\e[2J"); // Limpar tela
 		
 	} while (opcao != 0);
 	
