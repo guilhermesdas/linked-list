@@ -130,15 +130,10 @@ Lista merge(Lista lista1, Lista lista2){
 		listaAux.ult = lista2.ult;
 
 	}
-	else {
+	else { // atual2 = lista2.ult->prox
 		inserirBloco(&listaAux,atual1);
 		listaAux.ult = lista1.ult;
-		/* Nesse instante, há um problema: tendo em vista que as duas listas são
-		 * sequenciais, a continuação da lista auxiliar (listaAux.ultimo→proximo) deveria
-		 * ser o ponteiro após o fim da segunda lista (lista2.ultimo→proximo). Contudo,
-		 * isso se altera quando inserimos o ponteiro atual1. Por consequinte, devemos
-		 * encadear corretamente: a continuação será então atual2, que contém atualmente
-		 * o ponteiro após a lista2 */
+		// Encadeamos o final de listaAux com a continuação de lista2 (lista2.ult->prox)
 		listaAux.ult->prox = atual2;
 	}
 
@@ -209,7 +204,7 @@ void removerRepetidos(Lista* lista){
 
 }
 
-void inserirGerarMenu(Lista * lista){
+void opcaoGerarInserir(Lista * lista){
 	
 	printf("\t\t\tEntre com a quantidade de valores: ");
 	int tam;
@@ -218,14 +213,14 @@ void inserirGerarMenu(Lista * lista){
 		printf("\t\t\tEntre com uma quantidade válida: ");
 		scanf("%d",&tam);
 	}
-	printf("\t\t\tGerando e inserindo valores...\n");
+	printf("\t\t\tGerando e inserindo valores...");
 	gerarValores(lista,tam);
 	
 }
 
-void ordenarMenu(Lista * lista){
+void opcaoOrdenar(Lista * lista){
 	
-	printf("\t\t\tOrdenando lista...\n");
+	printf("\t\t\tOrdenando lista...");
 	clock_t inicio = clock();
 	mergeSort(lista);
 	clock_t fim = clock();
@@ -250,13 +245,13 @@ void menu(Lista* lista){
 		
 		switch(opcao){
 			case 1:
-				inserirGerarMenu(lista);
+				opcaoGerarInserir(lista);
 				break;
 			case 2:
-				ordenarMenu(lista);
+				opcaoOrdenar(lista);
 				break;
 			case 3:
-				printf("\t\t\tRemovendo valores repetidos...\n");
+				printf("\t\t\tRemovendo valores repetidos...");
 				removerRepetidos(lista);
 				break;
 			case 4:
@@ -265,11 +260,11 @@ void menu(Lista* lista){
 			case 0:
 				break;
 			default:
-				printf("\t\t\tInforme uma opcao valida...\n");
+				printf("\t\t\tInforme uma opcao valida...");
 				break;
 		}
 		
-		printf("\t\t\tPressione uma tecla para continuar...");
+		printf("\n\t\t\tPressione uma tecla para continuar...");
 		getchar(); getchar(); // Aguarda uma tecla ser pressionada
 		printf("\e[H\e[2J"); // Limpar tela
 		
