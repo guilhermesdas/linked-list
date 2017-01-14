@@ -50,7 +50,7 @@ void mostrarLista(Lista lista);
 // que está na metade a lista
 Bloco* buscarMeio (Lista lista);
 
-// Intercalar duas listas ordenadas, ordenando-as
+// Intercalar duas listas ordenadas
 Lista merge(Lista lista1, Lista lista2);
 
 // Repartir a lista em duas partes recursivamente ate que ambas esteja
@@ -63,11 +63,11 @@ void removerRepetidos(Lista* lista);
 
 // Função com operações a se fazer quando for solicitado
 // para gerar e inserir valores na lista
-void inserirGerarMenu(Lista * lista);
+void opcaoGerarInserir(Lista * lista);
 
 // Função com operações a se fazer quando for solicitado
 // para ordenar os valores na lista
-void ordenarMenu(Lista * lista);
+void opcaoOrdenar(Lista * lista);
 
 // Função para gerar um menu de opções para acesso das funções
 void menu();

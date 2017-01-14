@@ -143,8 +143,8 @@ Lista merge(Lista lista1, Lista lista2){
 
 void mergeSort(Lista* lista){
 
-	/* Se houver apenas um elemento na lista, nenhuma
-	 * operação será feita */
+	/* Se houver apenas um ou nenhum elemento na lista
+	 * nenhuma operação será feita */
 	if ( lista->prim != lista->ult ) {
 
 		Bloco* meio = buscarMeio(*lista);
@@ -221,6 +221,10 @@ void opcaoGerarInserir(Lista * lista){
 void opcaoOrdenar(Lista * lista){
 	
 	printf("\t\t\tOrdenando lista...\n");
+	if ( listaVazia(*lista) ){
+		printf("\t\t\tLista vazia.\n");
+		return;
+	}
 	clock_t inicio = clock();
 	mergeSort(lista);
 	clock_t fim = clock();
@@ -251,7 +255,7 @@ void menu(Lista* lista){
 				opcaoOrdenar(lista);
 				break;
 			case 3:
-				printf("\t\t\tRemovendo valores repetidos...");
+				printf("\t\t\tRemovendo valores repetidos...\n");
 				removerRepetidos(lista);
 				break;
 			case 4:
@@ -266,7 +270,7 @@ void menu(Lista* lista){
 		
 		printf("\n\t\t\tPressione uma tecla para continuar...");
 		getchar(); getchar(); // Aguarda uma tecla ser pressionada
-		printf("\e[H\e[2J"); // Limpar tela
+		printf("\e[H\e[2J"); // "Limpar a tela" (deslizando para cima é possível ver o conteúdo anterior)
 		
 	} while (opcao != 0);
 	
