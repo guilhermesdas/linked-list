@@ -3,8 +3,6 @@
 
 #include "lista.h"
 
-#define MAX 100
-
 int main(){
 	
 	Lista lista;
