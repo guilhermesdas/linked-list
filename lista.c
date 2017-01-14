@@ -28,7 +28,7 @@ void inserirNumero(Lista* lista, int num){
 
 void inserirBloco(Lista* lista, Bloco* novo){
 
-	// Caso seja a lista esteja vazia, novo será
+	// Caso a lista esteja vazia, novo será
 	// o único elemento na lista
 	if ( listaVazia(*lista) ) {
 		lista->prim = novo;
@@ -146,12 +146,7 @@ Lista merge(Lista lista1, Lista lista2){
 
 }
 
-void mergeSort(Lista* lista){
-	
-	if ( listaVazia(*lista) ){
-		printf("\t\t\tLista vazia...\n");
-		return;
-	}
+void mergeSort(Lista* lista)
 
 	/* Se houver apenas um elemento na lista, nenhuma
 	 * operação será feita */
@@ -274,9 +269,9 @@ void menu(Lista* lista){
 				break;
 		}
 		
-			printf("\t\t\tPressione uma tecla para continuar...");
-			getchar(); getchar();
-			printf("\e[H\e[2J"); // Limpar tela
+		printf("\t\t\tPressione uma tecla para continuar...");
+		getchar(); getchar(); // Aguarda uma tecla ser pressionada
+		printf("\e[H\e[2J"); // Limpar tela
 		
 	} while (opcao != 0);
 	
