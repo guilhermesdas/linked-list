@@ -141,7 +141,7 @@ Lista merge(Lista lista1, Lista lista2){
 
 }
 
-void mergeSort(Lista* lista)
+void mergeSort(Lista* lista){
 
 	/* Se houver apenas um elemento na lista, nenhuma
 	 * operação será feita */
@@ -220,7 +220,7 @@ void opcaoGerarInserir(Lista * lista){
 
 void opcaoOrdenar(Lista * lista){
 	
-	printf("\t\t\tOrdenando lista...");
+	printf("\t\t\tOrdenando lista...\n");
 	clock_t inicio = clock();
 	mergeSort(lista);
 	clock_t fim = clock();
