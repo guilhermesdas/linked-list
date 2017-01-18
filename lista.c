@@ -95,9 +95,9 @@ Lista merge(Lista lista1, Lista lista2){
 
 	// Verifica se uma das listas está vazia
 	if ( listaVazia(lista1) )
-		return lista1;
-	if ( listaVazia(lista2) )
 		return lista2;
+	if ( listaVazia(lista2) )
+		return lista1;
 
 	// Lista auxiliar para armazenar os valores de forma ordenada
 	Lista listaAux;
