@@ -48,7 +48,7 @@ void gerarValores(Lista* lista, int tam){
 
 	while ( ind < tam ) {
 
-		int num = rand() % RANDMAX;
+		int num = rand() % RANDMAX; 
 		inserirNumero(lista,num);
 
 		ind++;
@@ -63,7 +63,6 @@ void mostrarLista(Lista lista){
 		return;
 	}
 
-	printf("\n\t\t\tLista:\n");
 	Bloco* ind = lista.prim;
 	while ( ind != lista.ult->prox ) {
 		printf("\t\t\t%d\tfreq %d\tend %p\n",ind->num,ind->freq,ind);
@@ -72,6 +71,8 @@ void mostrarLista(Lista lista){
 	printf("\n");
 
 }
+
+////////////////// MERGE SORT ////////////////////////////
 
 Bloco* buscarMeio (Lista lista){
 
@@ -168,6 +169,103 @@ void mergeSort(Lista* lista){
 
 }
 
+////////////////////////////////////////////////
+
+/////////////////// SELECTION SORT ////////////////////////
+
+Bloco* buscarAnteriorMenor( Lista * lista ) {
+	
+	if ( listaVazia(*lista) ) {
+	
+		return NULL;
+	
+	}
+	
+	Bloco* anteriorMenor = NULL; // Armazenar o endereço do ponteiro anterior ao menor elemento
+	Bloco* atual = lista->prim; // Ponteiro para percorrer toda a lista
+	int menor = lista->prim->num; // menor numero encontrado ate agora
+	
+	// Percorre toda a lista
+	while ( atual->prox != lista->ult->prox ) {
+		
+		// Se sempre compararmos com o proximo elemento, o atual
+		// será o anterior a ele
+		if ( atual->prox->num < menor ) {
+			anteriorMenor = atual;
+			menor = atual->prox->num;
+		}
+		
+		atual = atual->prox;
+	}
+	
+	return anteriorMenor;
+	
+}
+
+Bloco* buscarRemoverMenor(Lista * lista){
+	
+	if ( listaVazia(*lista) ) {
+	
+		return NULL;
+	
+	}
+	
+	Bloco* anteriorMenor = buscarAnteriorMenor(lista);
+	
+	Bloco* blocoMenor;
+	
+	// O menor é a cabeça da lista
+	if ( anteriorMenor == NULL ) {
+		blocoMenor = lista->prim;
+		
+		// Devemos recortar o primeiro elemento; se houver apenas um,
+		// recortamos o ultimo tambem (serão iguais)
+		
+		if ( lista->prim == lista->ult )
+			lista->ult = lista->ult->prox;
+			
+		lista->prim = lista->prim->prox;
+
+	} else {
+		
+		blocoMenor = anteriorMenor->prox;
+		
+		// Recortamos blocoMenor
+		
+		if ( blocoMenor == lista->ult ) {
+			lista->ult = anteriorMenor;
+			lista->ult->prox = NULL;
+		}
+		
+		// O elemento está no meio da lista
+		else {
+			
+			anteriorMenor->prox = anteriorMenor->prox->prox;
+		}
+	}
+	
+	return blocoMenor;
+	
+}
+
+void selectionSort(Lista* lista){
+	
+	Lista listaAux;
+	inicializa(&listaAux);
+	while ( !listaVazia(*lista)  ) {
+		
+		Bloco* menor = buscarRemoverMenor(lista);
+		
+		inserirBloco(&listaAux,menor);
+		
+	}
+	
+	*lista = listaAux;
+	
+}
+
+////////////////////////////////////////////////
+
 void removerRepetidos(Lista* lista){
 		
 	if ( listaVazia(*lista) ){
@@ -204,6 +302,8 @@ void removerRepetidos(Lista* lista){
 
 }
 
+/////////////////////////////////////////////////////////////////////
+
 void opcaoGerarInserir(Lista * lista){
 	
 	printf("\t\t\tEntre com a quantidade de valores: ");
@@ -218,7 +318,7 @@ void opcaoGerarInserir(Lista * lista){
 	
 }
 
-void opcaoOrdenar(Lista * lista){
+void opcaoOrdenar(Lista * lista, int metodo){
 	
 	printf("\t\t\tOrdenando lista...\n");
 	if ( listaVazia(*lista) ){
@@ -226,7 +326,18 @@ void opcaoOrdenar(Lista * lista){
 		return;
 	}
 	clock_t inicio = clock();
-	mergeSort(lista);
+	
+	switch(metodo){
+		
+		case MERGE_SORT:
+			mergeSort(lista);
+			break;
+		case SELECTION_SORT:
+			selectionSort(lista);
+			break;
+		
+	}
+	
 	clock_t fim = clock();
 	printf("\t\t\tTempo de ordenacao: %.10f s\n",(double)(fim-inicio)/(CLOCKS_PER_SEC));
 	
@@ -239,10 +350,11 @@ void menu(Lista* lista){
 	do {
 
 		printf("\n");
-		printf("\t\t\t1 - Inserir e Gerar valores\n");
-		printf("\t\t\t2 - Ordenar lista\n");
-		printf("\t\t\t3 - Remover elementos repetidos\n");
-		printf("\t\t\t4 - Mostrar lista\n");
+		printf("\t\t\t1 - Gerar e Inserir valores\n");
+		printf("\t\t\t2 - Ordenar com Merge Sort\n");
+		printf("\t\t\t3 - Ordenar com Selection Sort\n");
+		printf("\t\t\t4 - Remover elementos repetidos\n");
+		printf("\t\t\t5 - Mostrar lista\n");
 		printf("\t\t\t0 - Sair\n\n");
 		printf("\t\t\tEntre com uma opcao: ");
 		scanf("%d",&opcao);
@@ -252,13 +364,14 @@ void menu(Lista* lista){
 				opcaoGerarInserir(lista);
 				break;
 			case 2:
-				opcaoOrdenar(lista);
-				break;
 			case 3:
+				opcaoOrdenar(lista,opcao);
+				break;
+			case 4:
 				printf("\t\t\tRemovendo valores repetidos...\n");
 				removerRepetidos(lista);
 				break;
-			case 4:
+			case 5:
 				mostrarLista(*lista);
 				break;
 			case 0:
@@ -275,3 +388,4 @@ void menu(Lista* lista){
 	} while (opcao != 0);
 	
 }
+

@@ -4,16 +4,19 @@
 
 // Intervalo dos números a serem gerados
 // [0,RANDMAX)
-#define RANDMAX 1000
+#define RANDMAX 10000
+
+// OPCOES PARA ORDENACAO
+#define MERGE_SORT 2
+#define SELECTION_SORT 3
 
 // Nós / Bloco
 // Bloco (estrutura/registro) com os Dados (numero e frequencia) e um ponteiro para o bloco seguinte
-typedef struct bloco Bloco;
 typedef struct bloco {
 	int num;
 	int freq;
-	Bloco* prox;
-} bloco;
+	struct bloco * prox;
+} Bloco;
 
 // Lista
 struct {
@@ -57,6 +60,16 @@ Lista merge(Lista lista1, Lista lista2);
 // ordenadas e intervalá-las por meio da funcao merge
 void mergeSort(Lista* lista);
 
+// Dada uma lista, será retornado o ponteiro anterior ao menor elemento da lista
+// Caso o menor seja o primeiro, será retornado NULL
+Bloco* buscarAnteriorMenor( Lista * lista );
+
+// Buscar o menor elemento da lista e o recortar da mesma
+Bloco* buscarRemoverMenor( Lista * lista);
+
+// Ordenar utilizando o método Selection Sort
+void selectionSort(Lista* lista);
+
 // Funcao para remover os elementos sequencias repetidos da lista
 // e acrescentar a frequencia em um deles
 void removerRepetidos(Lista* lista);
@@ -66,8 +79,9 @@ void removerRepetidos(Lista* lista);
 void opcaoGerarInserir(Lista * lista);
 
 // Função com operações a se fazer quando for solicitado
-// para ordenar os valores na lista
-void opcaoOrdenar(Lista * lista);
+// para ordenar utilizando uma determinado metodo
+void opcaoOrdenar(Lista * lista, int metodo);
 
 // Função para gerar um menu de opções para acesso das funções
 void menu();
+
